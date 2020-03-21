@@ -1,0 +1,19 @@
+Project set up
+
+Step 1 : install virtual environment
+command :
+deactivate 
+pip install virtualenv
+
+step 2 : create vitual env and activate
+command:
+py -m venv env
+.\env\Scripts\activate
+
+Step 3 : install requirement once the virtual env is activated
+command:
+pip install -r requirements.txt 
+
+step 4 : run behave command
+command : behave -i <feature file name> <feature file path>
+e.g: behave -i employee projectname\tests
