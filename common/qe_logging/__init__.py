@@ -10,7 +10,7 @@ def list_from(item):
         return []
     if not is_iterable(item):
         return [item]
-    return list[item]
+    return list(item)
 
 
 def is_iterable(item):

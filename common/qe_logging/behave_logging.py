@@ -31,7 +31,7 @@ def before_step(context, step):
 def after_step(context, step):
     if step.status == "failed":
         _step_logger("        FAILED: {} {}".format(step.keyword, step.name))
-        _step_logger("                {}".format(step.error_message or step.exceptipn))
+        _step_logger("                {}".format(step.error_message or step.exception))
         _step_logger("--------END OF FAILURE DEBUG")
     _step_logger("")
 

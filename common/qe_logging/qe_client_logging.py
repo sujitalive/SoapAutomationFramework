@@ -11,12 +11,11 @@ class RequestsLoggingClient(requests.Session):
         self,
         base_url=None,
         curl_logger=None,
-        accept="application/json",
-        content_type="application/json",
+        content_type="text/xml; charset=utf-8",
         response_formatter=False,
         response_retry_checker=False,
     ):
-        self.default_header = {"Accept": accept, "Content-Type": content_type}
+        self.default_header = {"Content-Type": content_type}
         self.base_url = base_url
         self.curl_logger = self._initialized_logger(
             curl_logger or RequestAndResponseLogger

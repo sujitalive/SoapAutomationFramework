@@ -1,19 +1,15 @@
-from common.qe_logging import ResponseInfo
-from projectname.schemas.productschema import CREATE_EMPLOYEE_PAYLOAD
+RESPONSE_CODE = {"OK": 200}
 
 
-@then("The response should be OK")
-def step_then_response_status(context):
-    context.responses.set(ResponseInfo(test1="sujit"))
+@then("The response should be {request_key}")
+def step_then_response_status(context, request_key):
     response_list = getattr(context, "responses", [])
     if response_list:
         for resp_info in context.responses:
-            x = resp_info.test1
-    print("Then The response should be OK")
-
-
-@given("A valid payload to create an employee")
-def step_given_valid_payload_to_create_employee(context):
-    UPDATE_EMPLOYEE_PAYLOAD_FIELDS = {"name":"newSujit", "age":"33"}
-    payload = context.payloadcreator(CREATE_EMPLOYEE_PAYLOAD, UPDATE_EMPLOYEE_PAYLOAD_FIELDS)
-    context.responses.set(ResponseInfo(payload=payload))
+            if resp_info.response.status_code != RESPONSE_CODE.get(
+                str(request_key).upper()
+            ):
+                assert context.failed is True
+                # raise NameError
+                context.error_message = "not found"
+                # assert NameError, context.error_message
