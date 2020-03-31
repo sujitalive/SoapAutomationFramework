@@ -6,8 +6,6 @@ from projectname.schemas.productschema import (
     FindPerson_Schema,
 )
 
-v1_client_path = "https://www.crcind.com:443/csp/samples/SOAP.Demo.cls"
-
 
 def prep_call(
     context_call, *attributes, fixed_args=None, kwargs_from_attrs=None, **kwargs
@@ -26,11 +24,6 @@ def prep_call(
     return innner
 
 
-# REQUESTS = {
-#     f"AddInteger" or f"DivideInteger" or f"FindPerson": prep_call("employee_v1_client.post_method", "data", "method"),
-#     # f"AddInteger": prep_call("employee_v1_client.post_method", "data", "method"),
-# }
-
 PAYLOADREQUESTS = {
     f"AddInteger": AddInteger_Schema,
     f"DivideInteger": DivideInteger_Schema,
@@ -38,20 +31,15 @@ PAYLOADREQUESTS = {
 }
 
 
-# @when("I call {request_key}")
-# def step_when_call_request(context, request_key):
-#     call_to_place = REQUESTS.get(request_key)
-#     response_list = getattr(context, "responses", [])
-#     if response_list:
-#         for resp_info in context.responses:
-#             resp_info.response = call_to_place(context, resp_info)
-#     else:
-#         context.response = call_to_place(context)
-
-
 @when("I call the service")
 def step_when_call_request(context):
-    call_to_place = prep_call("employee_v1_client.post_method", "data", "method")
+    kwargs = {
+        "url": context.qe_config.get("url"),
+        "SOAPAction": context.qe_config.get("SOAPAction"),
+    }
+    call_to_place = prep_call(
+        "employee_v1_client.post_method", "data", "method", **kwargs
+    )
     response_list = getattr(context, "responses", [])
     if response_list:
         for resp_info in context.responses:

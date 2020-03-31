@@ -1,5 +1,6 @@
 import logging
 
+from common.qe_logging.config_handler import get_dictionary_from_config
 from common.qe_logging.logfile_create import setup_logging
 
 logging.getLogger("behave").setLevel(logging.DEBUG)
@@ -14,6 +15,8 @@ kwargs_logging = {"base_log_dir": "log", "log_name_prefix": "bahave"}
 
 def before_all(context):
     setup_logging(**kwargs_logging)
+    context.environment = context.config.userdata["environment"]
+    context.qe_config = get_dictionary_from_config(context.environment)
 
 
 def before_feature(context, feature):

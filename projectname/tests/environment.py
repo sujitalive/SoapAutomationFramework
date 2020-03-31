@@ -9,6 +9,8 @@ def before_all(context):
     context.employee_v1_client = ProductClient()
     # context.employee_v1_helper = ProductHelper(context.employee_v1_client)
     behave_logging.before_all(context)
+    # context.url = context.qe_config.get("url")
+    # context.SOAPAction = context.qe_config.get("SOAPAction")
     context.responses = ResponseList()
     # context.payloadcreator = (context.employee_v1_helper.employee_payload())
 
