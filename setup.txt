@@ -15,5 +15,5 @@ command:
 pip install -r requirement.txt
 
 step 4 : run behave command
-command : behave -i <feature file name> <feature file path>
+command : behave -D environment=<environment name> -i <feature file name> <feature file path>
 e.g: behave -i employee projectname\tests
