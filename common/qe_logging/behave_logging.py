@@ -16,19 +16,19 @@ kwargs_logging = {"base_log_dir": "log", "log_name_prefix": "bahave"}
 def before_all(context):
     context.environment = context.config.userdata["environment"]
     context.qe_config = get_dictionary_from_config(context.environment)
+    context.tag = context.config.userdata["testtype"]
     kwargs_logging["environment"] = context.environment
     setup_logging(**kwargs_logging)
 
 
 def before_feature(context, feature):
     _feature_logger("Feature: {}".format(feature.name))
-    if feature.tags:
-        if len(feature.tags) == 1:
-            context.tag = feature.tags[0]
-            print()
-        else:
-            _feature_logger("        FAILED: Please provide one tag before Feature")
-            assert context.failed is True
+    # if feature.tags:
+    #     if len(feature.tags) == 1:
+    #         context.tag = feature.tags[0]
+    #     else:
+    #         _feature_logger("        FAILED: Please provide one tag before Feature")
+    #         assert context.failed is True
 
 
 def before_scenario(context, scenario):
