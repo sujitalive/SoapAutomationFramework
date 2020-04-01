@@ -1,3 +1,5 @@
+from projectname.tests.common import createOutputXmls
+
 RESPONSE_CODE = {"OK": 200}
 
 
@@ -10,6 +12,8 @@ def step_then_response_status(context, request_key):
                 str(request_key).upper()
             ):
                 assert context.failed is True
-                # raise NameError
                 context.error_message = "not found"
-                # assert NameError, context.error_message
+            else:
+                if getattr(context, "tag", []):
+                    if getattr(context, "tag") == "beforedeployement" or "afterdeployement":
+                        createOutputXmls(context, resp_info)

@@ -1,19 +1,16 @@
 CREATE_EMPLOYEE_PAYLOAD = {"name": "test", "salary": "123", "age": "23"}
 
-# def wrapper_payload():
-#     def modified_payload(payload, updatepayloaddict):
-#         if updatepayloaddict:
-#             for key in updatepayloaddict.keys():
-#                 if key in payload.keys():
-#                     payload[key] = updatepayloaddict.get(key)
-#             return payload
-#         else:
-#             return payload
-#     return modified_payload
+
+def payload_variable_length_evalutaor(**kwargs):
+    count = 0
+    for key in kwargs.keys():
+        if "var" in key:
+            count = count + 1
+    return count
 
 
 def AddInteger_Schema(**kwargs):
-    if len(kwargs) == 2:
+    if payload_variable_length_evalutaor(**kwargs) == 2:
         return f"""<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org">
    <soapenv:Header/>
    <soapenv:Body>
@@ -28,7 +25,7 @@ def AddInteger_Schema(**kwargs):
 
 
 def DivideInteger_Schema(**kwargs):
-    if len(kwargs) == 2:
+    if payload_variable_length_evalutaor(**kwargs) == 2:
         return f"""<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org">
    <soapenv:Header/>
    <soapenv:Body>
@@ -43,7 +40,7 @@ def DivideInteger_Schema(**kwargs):
 
 
 def FindPerson_Schema(**kwargs):
-    if len(kwargs) == 1:
+    if payload_variable_length_evalutaor(**kwargs) == 1:
         return f"""<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org">
    <soapenv:Header/>
    <soapenv:Body>

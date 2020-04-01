@@ -6,8 +6,10 @@ DEFAULT_FORMATTER_STRING = "%(asctime)s:%(levelname)-8s:%(name)-25s:%(message)s"
 
 
 def setup_logging(**kwargs):
+    environment_name = kwargs.get("environment")
     base_log_dir = kwargs.get("base_log_dir")
     master_logfile_prefix = kwargs.get("log_name_prefix")
+
 
     result = []
     root_log = logging.getLogger("")
@@ -17,7 +19,7 @@ def setup_logging(**kwargs):
         return result
 
     timestamp = "{:%Y%m%d_%H%M%S}".format(datetime.now())
-    timestamp_log_dir = os.path.join(*(base_log_dir,) + (timestamp,))
+    timestamp_log_dir = os.path.join(* (base_log_dir,) + (environment_name,)  + (timestamp,))
     master_logfile_name = "{}.master.log".format(master_logfile_prefix.lower())
 
     for dir_ in (timestamp_log_dir, base_log_dir):

@@ -8,7 +8,7 @@ from projectname.schemas.productschema import (
 
 
 def prep_call(
-    context_call, *attributes, fixed_args=None, kwargs_from_attrs=None, **kwargs
+        context_call, *attributes, fixed_args=None, kwargs_from_attrs=None, **kwargs
 ):
     def innner(context, resp_info=None):
         attr_source = resp_info or context
@@ -53,9 +53,10 @@ def step_given_valid_payload_for_post(context):
     context.responses.set(
         [
             ResponseInfo(
-                method=row[row.headings[0]],
-                data=PAYLOADREQUESTS.get(row[row.headings[0]])(
-                    **remove_first_element_list(row)
+                scenarioname=row[row.headings[0]],
+                method=row[row.headings[1]],
+                data=PAYLOADREQUESTS.get(row[row.headings[1]])(
+                    **generate_dictionary_from_row(row)
                 ),
             )
             for row in context.table
@@ -63,15 +64,8 @@ def step_given_valid_payload_for_post(context):
     )
 
 
-def remove_first_element_list(row):
-    row_headings = row.headings
-    if row_headings[0] == "method":
-        row_headings.pop(0)
-
+def generate_dictionary_from_row(row):
     kwargs = {}
-    count = 0
-    for key in row_headings or []:
-        count = count + 1
-        kwargs[key] = row[count]
-
+    for key, value in zip(row.headings, row):
+        kwargs[key] = value
     return kwargs

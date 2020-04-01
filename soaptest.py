@@ -39,7 +39,7 @@
 # print("Status Code -->> "+str(response.status_code))
 # print("Response Header -->> "+str(response.headers))
 # print("Response output -->> "+str(response.content))
-#
+# #
 # import xml.dom.minidom
 # uglyxml = response.content
 # xml = xml.dom.minidom.parseString(uglyxml)
