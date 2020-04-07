@@ -116,7 +116,6 @@ def compare_files(
                             diffdict["Content Match"] = "False"
                             diffdict["Mismatch Content"] = (
                                 diffdict["Mismatch Content"]
-                                + "\n"
                                 + "Line No:"
                                 + str(count)
                                 + " "
